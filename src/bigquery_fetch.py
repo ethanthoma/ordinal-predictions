@@ -19,7 +19,6 @@ class LoadTableAsChunksParams:
     cache_dir:  str
     chunk_size: int
 
-
 def load_table_as_chunks(params: LoadTableAsChunksParams) -> None:
     print("loading data...")
     if is_cache_used(params.cache_dir):

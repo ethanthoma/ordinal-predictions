@@ -427,6 +427,16 @@ files = [
 ]
 
 [[package]]
+name = "mord"
+version = "0.7"
+description = "Ordinal regression models"
+optional = false
+python-versions = "*"
+files = [
+    {file = "mord-0.7.tar.gz", hash = "sha256:b60002734e33ca7fad9f94999c70b27fe038eb069cbd0fb08d6027c3d34a7bb3"},
+]
+
+[[package]]
 name = "numpy"
 version = "1.26.2"
 description = "Fundamental package for array computing in Python"
@@ -712,4 +722,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "6ca56b27289068499cede4b0474f19f142c0ee50e360f243a2de9aad2a33c9e0"
+content-hash = "87d6e800e464d6f72a363af636d1d487627e270291a991f3fc365f8614c8bd72"
