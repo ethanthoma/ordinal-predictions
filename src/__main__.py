@@ -2,7 +2,7 @@ import configparser
 
 from bigquery_fetch import LoadTableAsChunksParams, load_table_as_chunks
 from load_dataframe import (
-    LoadChunksAsDf, load_chunks_as_df, 
+    LoadChunksAsDfParams, load_chunks_as_df, 
     SplitDfParams, split_df
 )
 
