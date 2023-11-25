@@ -1,3 +1,11 @@
+# environment
 .direnv/
 .env
 .envrc
+
+# cache
+__pycache__/
+
+# saved local data
+cache/
+

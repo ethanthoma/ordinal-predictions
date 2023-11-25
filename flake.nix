@@ -25,14 +25,8 @@
                     export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath buildInputs}:$LD_LIBRARY_PATH"
                     export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib.outPath}/lib:$LD_LIBRARY_PATH"
 
-                    # source environment variables
-                    set -a; source .env; set +a
-
                     # install python packages
                     poetry install
-
-                    # gcloud
-                    gcloud config set project $POETRY_PROJECT_ID
 
                     DEFAULT_CREDENTIALS_FILE="$HOME/.config/gcloud/application_default_credentials.json"
                     if [ -f "$DEFAULT_CREDENTIALS_FILE" ]; then
