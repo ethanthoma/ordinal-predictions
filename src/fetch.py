@@ -8,12 +8,71 @@ import pandas as pd
 import random
 from typing import List
 
-
 import warnings
 warnings.filterwarnings(
     "ignore", 
     "Your application has authenticated using end user credentials"
 )
+
+
+@dataclass
+class DataFetchedParams:
+    local_file_name:    str
+
+    cache_dir:          str = None
+
+
+    def __post_init__(self):
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+
+        for field in fields(self):
+            if getattr(self, field.name) is None:
+                section = field.name
+                if section not in config:
+                    section = __name__
+
+                setattr(self, field.name, config.get(section, field.name))
+
+
+def data_fetched(params: DataFetchedParams):
+    combined_df_filepath = os.path.join(
+        params.cache_dir,
+        params.local_file_name
+    )
+
+    return os.path.exists(combined_df_filepath)
+
+
+@dataclass
+class LoadFetchedDataParams:
+    local_file_name:    str
+
+    cache_dir:          str = None
+
+
+    def __post_init__(self):
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+
+        for field in fields(self):
+            if getattr(self, field.name) is None:
+                section = field.name
+                if section not in config:
+                    section = __name__
+
+                setattr(self, field.name, config.get(section, field.name))
+
+
+def load_fetched_data(params: LoadFetchedDataParams):
+    combined_df_filepath = os.path.join(
+        params.cache_dir,
+        params.local_file_name
+    )
+
+    if os.path.exists(combined_df_filepath):
+        return pd.read_csv(combined_df_filepath)
+
 
 @dataclass
 class FetchFromTableParams:
@@ -39,15 +98,10 @@ class FetchFromTableParams:
 
 def fetch_from_table(params: FetchFromTableParams) -> pd.DataFrame:
     print(f"Loading {params.local_file_name}...")
-
     combined_df_filepath = os.path.join(
         params.cache_dir,
         params.local_file_name
     )
-
-    if os.path.exists(combined_df_filepath):
-        print(f"{params.local_file_name} already exists, returning...")
-        return pd.read_csv(combined_df_filepath)
 
     client      = bigquery.Client()
     file_prefix = str(random.getrandbits(128))
